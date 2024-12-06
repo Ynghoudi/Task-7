@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+void findMax(int* a, int* b, int*& max) {
+    if (*a > *b) {
+        max = a; 
+    } else {
+        max = b;
+    }
+}
+
+int main() {
+    int num1, num2;
+    cout << "Введите первое число: ";
+    cin >> num1;
+    cout << "Введите второе число: ";
+    cin >> num2;
+
+    int* ptr1 = &num1; 
+    int* ptr2 = &num2; 
+    int* maxPtr = nullptr; 
+
+    findMax(ptr1, ptr2, maxPtr);
+
+    cout << "Наибольшее число: " << *maxPtr << endl;
+
+    return 0;
+}
