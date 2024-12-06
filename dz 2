@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+
+void determineSign(int* num, string*& sign) {
+    if (*num > 0) {
+        sign = new string("Положительное"); 
+    } else if (*num < 0) {
+        sign = new string("Отрицательное"); 
+    } else {
+        sign = new string("Ноль"); 
+    }
+}
+
+int main() {
+    int number; 
+    string* sign = nullptr;
+
+    cout << "Введите число: ";
+    cin >> number;
+
+    int* ptr = &number;
+
+    determineSign(ptr, sign);
+
+    cout << "Знак числа: " << *sign << endl;
+
+    delete sign; 
+    return 0;
+}
