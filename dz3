@@ -1,1 +1,99 @@
+#include <iostream>
+using namespace std;
 
+void shiftRows(int** matrix, int M, int N, int shift) {
+    shift = shift % M; 
+    if (shift < 0) shift += M; 
+
+    int** temp = new int*[M];
+    for (int i = 0; i < M; i++) {
+        temp[i] = new int[N];
+    }
+
+    for (int i = 0; i < M; i++) {
+        int newRow = (i + shift) % M;
+        for (int j = 0; j < N; j++) {
+            temp[newRow][j] = matrix[i][j];
+        }
+    }
+
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            matrix[i][j] = temp[i][j];
+        }
+    }
+
+    for (int i = 0; i < M; i++) {
+        delete[] temp[i];
+    }
+    delete[] temp;
+}
+
+void shiftColumns(int** matrix, int M, int N, int shift) {
+    shift = shift % N;
+    if (shift < 0) shift += N;
+
+    int** temp = new int*[M];
+    for (int i = 0; i < M; i++) {
+        temp[i] = new int[N];
+    }
+
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            int newCol = (j + shift) % N;
+            temp[i][newCol] = matrix[i][j];
+        }
+    }
+
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            matrix[i][j] = temp[i][j];
+        }
+    }
+
+    for (int i = 0; i < M; i++) {
+        delete[] temp[i];
+    }
+    delete[] temp;
+}
+void printMatrix(int** matrix, int M, int N) {
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            cout << matrix[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
+int main() {
+    int M = 4, N = 5;
+    int** matrix = new int*[M];
+    for (int i = 0; i < M; i++) {
+        matrix[i] = new int[N];
+    }
+
+    int count = 1;
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            matrix[i][j] = count++;
+        }
+    }
+
+    cout << "Исходная матрица:" << endl;
+    printMatrix(matrix, M, N);
+
+    shiftRows(matrix, M, N, 1); 
+    cout << "После сдвига строк:" << endl;
+    printMatrix(matrix, M, N);
+
+    shiftColumns(matrix, M, N, -2); 
+    cout << "После сдвига столбцов:" << endl;
+    printMatrix(matrix, M, N);
+
+    for (int i = 0; i < M; i++) {
+        delete[] matrix[i];
+    }
+    delete[] matrix;
+
+    return 0;
+}
